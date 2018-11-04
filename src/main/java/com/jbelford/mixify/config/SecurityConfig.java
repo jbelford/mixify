@@ -1,7 +1,5 @@
 package com.jbelford.mixify.config;
 
-import com.jbelford.mixify.constants.SpotifyApiConstants;
-
 import com.wrapper.spotify.SpotifyApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            // .antMatchers("/login")
-            // .permitAll()
-            .anyRequest()
-            .authenticated()
+            .antMatchers("/webjars/**").permitAll()
+            .antMatchers("/login").permitAll()
+            .anyRequest().authenticated()
             .and()
-            .oauth2Login()
-            .defaultSuccessUrl("/login");
-            // .loginPage("/login");
+            .oauth2Login().defaultSuccessUrl("/")
+            .loginPage("/login");
     }
 
     @Bean
@@ -44,14 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String DEFAULT_LOGIN_REDIRECT_URL = "{baseUrl}/login/oauth2/code/{registrationId}";
 
     private ClientRegistration spotifyClientRegistration(SpotifyApi spotifyApi) {
-        return ClientRegistration.withRegistrationId(SpotifyApiConstants.REGISTRATION_ID)
+        return ClientRegistration.withRegistrationId(SpotifyConfigConstants.REGISTRATION_ID)
             .redirectUriTemplate(DEFAULT_LOGIN_REDIRECT_URL)
             .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-            .scope(SpotifyApiConstants.Scopes.getAll())
-            .authorizationUri(SpotifyApiConstants.AUTHORIZATION_URL)
-            .tokenUri(SpotifyApiConstants.TOKEN_URL)
-            .userInfoUri(SpotifyApiConstants.USER_INFO)
+            .scope(SpotifyConfigConstants.Scopes.getAll())
+            .authorizationUri(SpotifyConfigConstants.AUTHORIZATION_URL)
+            .tokenUri(SpotifyConfigConstants.TOKEN_URL)
+            .userInfoUri(SpotifyConfigConstants.USER_INFO)
             .userNameAttributeName("display_name")
             .clientName("Spotify")
             .clientId(spotifyApi.getClientId())

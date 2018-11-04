@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Mixify Login</title>
+</head>
+
+<body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Welcome to Mixify</h1>
+            <p class="lead">Make your Spotify playlist tell a story</p>
+            <hr class="my-2">
+            <p>Mixify is a Spotify integration that helps you decide a suitable track order for your playlists.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" th:href="${authorizationUrl}" role="button">Login with Spotify</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="webjars/jquery/jquery.min.js"></script>
+    <script src="webjars/popper.js/umd/popper.min.js"></script>
+    <script src="webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

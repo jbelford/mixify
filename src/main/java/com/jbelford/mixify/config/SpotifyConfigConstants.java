@@ -1,10 +1,10 @@
-package com.jbelford.mixify.constants;
+package com.jbelford.mixify.config;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class SpotifyApiConstants {
+public final class SpotifyConfigConstants {
 
     private static final String AUTH_BASE_URL = "https://accounts.spotify.com";
 
@@ -40,6 +40,6 @@ public final class SpotifyApiConstants {
 
     }
 
-    private SpotifyApiConstants() {}
+    private SpotifyConfigConstants() {}
 
 }
