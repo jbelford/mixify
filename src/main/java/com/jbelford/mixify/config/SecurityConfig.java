@@ -1,9 +1,6 @@
 package com.jbelford.mixify.config;
 
-import com.jbelford.mixify.config.oauth2.SpotifyOAuth2User;
 import com.jbelford.mixify.config.oauth2.SpotifyOAuth2UserService;
-
-import com.wrapper.spotify.SpotifyApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,25 +22,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/webjars/**", "/login", "/css/**", "/img/**", "js/**").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .oauth2Login().defaultSuccessUrl("/")
-            .userInfoEndpoint().userService(new SpotifyOAuth2UserService())
-            .and()
-            .loginPage("/login");
+        http
+            .authorizeRequests()
+                .antMatchers("/webjars/**", "/login", "/css/**", "/img/**", "js/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .oauth2Login()
+                .defaultSuccessUrl("/")
+                .userInfoEndpoint()
+                    .userService(new SpotifyOAuth2UserService())
+                    .and()
+                .loginPage("/login");
     }
 
     @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(@Autowired SpotifyApi spotifyApi) {
+    public ClientRegistrationRepository clientRegistrationRepository(@Autowired AppConfigSpotify spotifyApi) {
         var registrations = Arrays.asList(spotifyClientRegistration(spotifyApi));
         return new InMemoryClientRegistrationRepository(registrations);
     }
 
 	private static final String DEFAULT_LOGIN_REDIRECT_URL = "{baseUrl}/login/oauth2/code/{registrationId}";
 
-    private ClientRegistration spotifyClientRegistration(SpotifyApi spotifyApi) {
+    private ClientRegistration spotifyClientRegistration(AppConfigSpotify spotifyApi) {
         return ClientRegistration.withRegistrationId(SpotifyConfigConstants.REGISTRATION_ID)
             .redirectUriTemplate(DEFAULT_LOGIN_REDIRECT_URL)
             .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
@@ -54,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userInfoUri(SpotifyConfigConstants.USER_INFO)
             .userNameAttributeName("display_name")
             .clientName("Spotify")
-            .clientId(spotifyApi.getClientId())
-            .clientSecret(spotifyApi.getClientSecret())
+            .clientId(spotifyApi.clientId)
+            .clientSecret(spotifyApi.secret)
             .build();
     }
 
