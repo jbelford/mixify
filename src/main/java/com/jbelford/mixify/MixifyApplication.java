@@ -9,4 +9,5 @@ public class MixifyApplication {
     public static void main(String[] args) {
         SpringApplication.run(MixifyApplication.class, args);
     }
+
 }

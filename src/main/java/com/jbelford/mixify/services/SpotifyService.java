@@ -1,8 +1,6 @@
 package com.jbelford.mixify.services;
 
-import com.google.gson.Gson;
 import com.wrapper.spotify.SpotifyApi;
-import com.wrapper.spotify.model_objects.specification.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +15,9 @@ public class SpotifyService {
         this.spotify = spotify;
     }
 
-    public User parseUser(Object jsonObject) {
-        Gson gson = new Gson();
-        String json = gson.toJson(jsonObject);
-        return new User.JsonUtil().createModelObject(json);
-    }
+    // public PlaylistSimplified[] getSimplifiedPlaylists(User user) {
+    //     this.spotify.getPlaylist(playlist_id)
+    // }
 
 
 }

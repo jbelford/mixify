@@ -1,15 +1,18 @@
 package com.jbelford.mixify.controllers;
 
+import com.jbelford.mixify.config.oauth2.SpotifyOAuth2User;
 import com.jbelford.mixify.services.SpotifyService;
 
+import com.wrapper.spotify.model_objects.specification.Image;
 import com.wrapper.spotify.model_objects.specification.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.stream.Stream;
 
 @Controller
 public class HomeController {
@@ -23,10 +26,10 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model, Authentication auth) throws Exception {
-        OAuth2User user = (OAuth2User) auth.getPrincipal();
-        User spotifyUser = this.spotifyService.parseUser(user.getAttributes());
+        var user = (SpotifyOAuth2User) auth.getPrincipal();
+        User spotifyUser = user.getUser();
         model.addAttribute("userName", user.getName());
-        String imageUrl = spotifyUser.getImages().length > 0 ? spotifyUser.getImages()[0].getUrl() : "";
+        String imageUrl = Stream.of(spotifyUser.getImages()).map(Image::getUrl).findFirst().orElse("");
         model.addAttribute("userImage", imageUrl);
         return "index";
     }

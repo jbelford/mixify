@@ -1,5 +1,8 @@
 package com.jbelford.mixify.config;
 
+import com.jbelford.mixify.config.oauth2.SpotifyOAuth2User;
+import com.jbelford.mixify.config.oauth2.SpotifyOAuth2UserService;
+
 import com.wrapper.spotify.SpotifyApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/webjars/**").permitAll()
-            .antMatchers("/login").permitAll()
+            .antMatchers("/webjars/**", "/login", "/css/**", "/img/**", "js/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .oauth2Login().defaultSuccessUrl("/")
+            .userInfoEndpoint().userService(new SpotifyOAuth2UserService())
+            .and()
             .loginPage("/login");
     }
 
