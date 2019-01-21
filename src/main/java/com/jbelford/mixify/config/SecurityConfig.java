@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryClientRegistrationRepository(registrations);
     }
 
-	private static final String DEFAULT_LOGIN_REDIRECT_URL = "{baseUrl}/login/oauth2/code/{registrationId}";
+    private static final String DEFAULT_LOGIN_REDIRECT_URL = "{baseUrl}/login/oauth2/code/{registrationId}";
 
     private ClientRegistration spotifyClientRegistration(AppConfigSpotify spotifyApi) {
         return ClientRegistration.withRegistrationId(SpotifyConfigConstants.REGISTRATION_ID)

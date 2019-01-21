@@ -1,8 +1,8 @@
 package com.jbelford.mixify.controllers;
 
 import com.jbelford.mixify.config.oauth2.SpotifyOAuth2User;
-import com.jbelford.mixify.models.HomeModel;
-import com.jbelford.mixify.models.PlaylistDetails;
+import com.jbelford.mixify.models.HomeModelView;
+import com.jbelford.mixify.models.PlaylistModel;
 import com.jbelford.mixify.services.SpotifyService;
 
 import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
@@ -29,11 +29,11 @@ public class HomeController {
         var user = (SpotifyOAuth2User) auth.getPrincipal();
 
         List<PlaylistSimplified> playlists = this.spotifyService.getSimplifiedPlaylists();
-        List<PlaylistDetails> playlistDetails = playlists.stream()
-                .map(PlaylistDetails::mapFromSimplified)
+        List<PlaylistModel> playlistDetails = playlists.stream()
+                .map(PlaylistModel::mapFromSimplified)
                 .collect(Collectors.toList());
 
-        return new HomeModel("home")
+        return new HomeModelView()
                 .setUsername(user.getName())
                 .setPlaylists(playlistDetails);
     }

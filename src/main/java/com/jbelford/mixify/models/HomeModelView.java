@@ -4,18 +4,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-public class HomeModel extends ModelAndView {
+public class HomeModelView extends ModelAndView {
 
-    public HomeModel(String viewName) {
-        super(viewName);
+    public HomeModelView() {
+        super("home");
     }
 
-    public HomeModel setUsername(String username) {
+    public HomeModelView setUsername(String username) {
         addObject("username", username);
         return this;
     }
 
-    public HomeModel setPlaylists(List<PlaylistDetails> playlists) {
+    public HomeModelView setPlaylists(List<PlaylistModel> playlists) {
         addObject("playlists", playlists);
         return this;
     }
