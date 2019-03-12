@@ -12,20 +12,39 @@
 
 <body>
 
-    <form action="/logout" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input class="btn btn-link" type="submit" value="Log out">
-    </form>
+    <div class="d-flex justify-content-between">
+        <form action="/logout" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input class="btn btn-link" type="submit" value="Log out">
+        </form>
 
-    <form action="/" method="get">
-        <input class="btn btn-link" type="submit" value="Go back">
-    </form>
+        <form action="/" method="get">
+            <input class="btn btn-link" type="submit" value="Go back">
+        </form>
+    </div>
 
-    <div class="container-fluid">
-        <div class="d-flex flex-column align-items-center">
-            <h1 class="display-1">Playlist: <span th:text="${playlist.name}"></span></h1>
+    <div class="position-fixed fixed-bottom">
+        <button class="btn btn-primary m-4 pl-4 pr-4">Resolve Missing Tracks</button>
+    </div>
+
+    <div class="container">
+        <div class="d-flex flex-column align-items-center mb-3">
+            <h1 class="display-1" th:text="${playlist.name}"></h1>
+        </div>
+
+
+        <div class="list-group">
+            <div class="list-group-item" th:each="track : ${tracks}">
+                <h5 class="mb-1" th:text="${track.name}"></h5>
+                <span class="badge badge-success" th:if="${track.isPlayable}">Playable</span>
+                <span class="badge badge-danger" th:if="${!track.isPlayable}">Not Playable</span>
+                <span class="badge badge-dark" th:if="${track.isLocal}">Local</span>
+                <br>
+                <span class="mr-1" th:each="artist : ${track.artists}" th:text="${artist}"></span>
+            </div>
         </div>
     </div>
+
 
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/popper.js/umd/popper.min.js"></script>

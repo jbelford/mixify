@@ -1,5 +1,6 @@
 package com.jbelford.mixify.services;
 
+import com.neovisionaries.i18n.CountryCode;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.specification.AudioFeatures;
@@ -48,10 +49,12 @@ public class SpotifyService {
             int limit = 100;
             Paging<PlaylistTrack> paging;
             List<PlaylistTrack> tracks = new ArrayList<>();
-            
+
             do {
-                paging = this.spotify.getPlaylistsTracks(playlistId).fields("next,items(is_local,track)")
-                        .limit(limit).offset(offset).build().execute();
+                paging = this.spotify.getPlaylistsTracks(playlistId).fields("next,items(is_local,track(name, artists, is_playable))")
+                        .limit(limit).offset(offset)
+                        .market(CountryCode.CA)
+                        .build().execute();
                 tracks.addAll(Arrays.asList(paging.getItems()));
                 offset += limit;
             } while (paging.getNext() != null);

@@ -12,7 +12,17 @@ public class TrackModel extends ModelMap {
     }
 
     public TrackModel setArtists(List<String> artists) {
-        addAttribute("artist", artists);
+        addAttribute("artists", artists);
+        return this;
+    }
+
+    public TrackModel setIsLocal(boolean isLocal) {
+        addAttribute("isLocal", isLocal);
+        return this;
+    }
+
+    public TrackModel setIsPlayable(boolean isPlayable) {
+        addAttribute("isPlayable", isPlayable);
         return this;
     }
 
