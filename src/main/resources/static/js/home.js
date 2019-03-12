@@ -8,3 +8,10 @@ $('.card').hover(
         $(this).removeClass('border-success');
     }
 );
+
+/**
+ * @param {string} id 
+ */
+function onSelectPlaylist(id) {
+    window.location = `/playlists/${id}`;
+}

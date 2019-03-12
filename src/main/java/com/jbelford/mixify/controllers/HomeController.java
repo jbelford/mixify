@@ -1,6 +1,7 @@
 package com.jbelford.mixify.controllers;
 
 import com.jbelford.mixify.config.oauth2.SpotifyOAuth2User;
+import com.jbelford.mixify.mappers.PlaylistMapper;
 import com.jbelford.mixify.models.HomeModelView;
 import com.jbelford.mixify.models.PlaylistModel;
 import com.jbelford.mixify.services.SpotifyService;
@@ -30,7 +31,7 @@ public class HomeController {
 
         List<PlaylistSimplified> playlists = this.spotifyService.getSimplifiedPlaylists();
         List<PlaylistModel> playlistDetails = playlists.stream()
-                .map(PlaylistModel::mapFromSimplified)
+                .map(PlaylistMapper::map)
                 .collect(Collectors.toList());
 
         return new HomeModelView()

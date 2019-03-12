@@ -15,7 +15,7 @@ public class PlaylistModelView extends ModelAndView {
         return this;
     }
 
-    public PlaylistModelView setTracks(List<Object> tracks) {
+    public PlaylistModelView setTracks(List<TrackModel> tracks) {
         addObject("tracks", tracks);
         return this;
     }

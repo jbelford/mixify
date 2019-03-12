@@ -4,6 +4,7 @@ import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.specification.AudioFeatures;
 import com.wrapper.spotify.model_objects.specification.Paging;
+import com.wrapper.spotify.model_objects.specification.Playlist;
 import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
 import com.wrapper.spotify.model_objects.specification.PlaylistTrack;
 
@@ -78,6 +79,16 @@ public class SpotifyService {
         } catch (SpotifyWebApiException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public Playlist getPlaylist(String id) throws IOException {
+        try {
+            return this.spotify.getPlaylist(id).build().execute();
+        } catch (SpotifyWebApiException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

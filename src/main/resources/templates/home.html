@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/home.css" rel="stylesheet">
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
 
     <title>Mixify</title>
 </head>
@@ -27,9 +27,13 @@
 
         <div class="container">
             <div class="card-columns">
-                <div id="playlist" class="card text-light bg-dark" th:each="playlist : ${playlists}" th:playlist-id="${playlist.id}">
+                <div id="playlist" class="card text-light bg-dark"
+                        th:each="playlist : ${playlists}"
+                        th:playlist-id="${playlist.id}"
+                        th:onclick="'window.location = \'' + @{'/playlists/' + ${playlist.id}} + '\''">
+
                     <img class="card-img-top" th:if="${playlist.image}" th:src="${playlist.image}" alt="No image">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <h4 class="card-title" th:text="${playlist.name}">Title</h4>
                     </div>
                 </div>
@@ -39,11 +43,11 @@
     </div>
 
 
-    <script src="webjars/jquery/jquery.min.js"></script>
-    <script src="webjars/popper.js/umd/popper.min.js"></script>
-    <script src="webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/popper.js/umd/popper.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="js/home.js"></script>
+    <script src="/js/home.js"></script>
 </body>
 
 </html>
